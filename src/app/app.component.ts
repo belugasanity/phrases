@@ -60,4 +60,8 @@ export class AppComponent implements OnInit {
     console.log(this.selectedDataArray);
     this.createChart();
   }
+
+  findItem(item: any) {
+    return this.selectedDataArray.find((x) => x.name === item.name);
+  }
 }
