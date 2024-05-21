@@ -16,7 +16,7 @@ export class GoogleSheetsService {
   getSheetData(): Observable<any> {
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.spreadsheetId}/values/${this.range}?key=${this.apiKey}`;
     return this.http.get<any>(url).pipe(
-      map(response => {
+      map((response) => {
         const rows = response.values;
         const headers = rows[0].slice(2); // Exclude the first two column headers
         const data = rows.slice(1).map((row: string | any[]) => ({
@@ -29,7 +29,7 @@ export class GoogleSheetsService {
             type: "line",
             name: header,
             dataPoints: data.map((row: { year: any; values: { [x: string]: any; }; }) => ({
-              x: row.year,
+              x: new Date(row.year, 0, 1),
               y: parseFloat(row.values[colIndex] || 0)
             }))
           };

@@ -1,5 +1,5 @@
 <div class="chart-container">
-  <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+  <canvasjs-chart [options]="chartOptions" [styles]="{display: 'block', width: '100%', height: '360px'}"></canvasjs-chart>
 </div>
 <button (click)="loadData()">Load Data</button>
 <p>{{ chartDataArray | json }}</p>

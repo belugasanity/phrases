@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     this.googleSheetsService.getSheetData().subscribe(data => {
       this.chartData = data;
       console.log(this.chartData.length);
-      this.chartDataArray = this.chartDataArray.concat(this.chartData[0]);
+      this.chartDataArray = this.chartDataArray.concat(this.chartData);
       this.createChart();
     });
   }
@@ -49,20 +49,20 @@ export class AppComponent implements OnInit {
         valueFormatString: "YYYY",
         intervalType: "year",
       },
-      data: [
-        {
-          type: 'line',
-          name: 'COVENANT PEOPLE',
-          dataPoints: [
-            { x: new Date(2024, 0, 1), y: 9 },
-            { x: new Date (2023), y: 3 },
-            { x: new Date(2022), y: 4 },
-            { x: new Date(2021), y: 6 },
-            { x: new Date(2020), y: 1 }
-          ],
-        }
-      ]
-      // data: this.chartDataArray
+      // data: [
+      //   {
+      //     type: 'line',
+      //     name: 'COVENANT PEOPLE',
+      //     dataPoints: [
+      //       { x: new Date(2024, 0, 1), y: 9 },
+      //       { x: new Date (2023), y: 3 },
+      //       { x: new Date(2022), y: 4 },
+      //       { x: new Date(2021), y: 6 },
+      //       { x: new Date(2020), y: 1 }
+      //     ],
+      //   }
+      // ]
+      data: this.chartDataArray
       }
 
   }
