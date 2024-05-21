@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
 
   constructor (public googleSheetsService: GoogleSheetsService) {
     this.chartDataArray = [];
+    this.selectedDataArray = [];
   }
 
   ngOnInit() {
@@ -49,21 +50,14 @@ export class AppComponent implements OnInit {
         valueFormatString: "YYYY",
         intervalType: "year",
       },
-      // data: [
-      //   {
-      //     type: 'line',
-      //     name: 'COVENANT PEOPLE',
-      //     dataPoints: [
-      //       { x: new Date(2024, 0, 1), y: 9 },
-      //       { x: new Date (2023), y: 3 },
-      //       { x: new Date(2022), y: 4 },
-      //       { x: new Date(2021), y: 6 },
-      //       { x: new Date(2020), y: 1 }
-      //     ],
-      //   }
-      // ]
-      data: this.chartDataArray
+      data: this.selectedDataArray
       }
 
+  }
+
+  addToSelected(item: any) {
+    this.selectedDataArray.push(item);
+    console.log(this.selectedDataArray);
+    this.createChart();
   }
 }

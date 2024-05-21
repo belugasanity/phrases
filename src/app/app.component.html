@@ -1,7 +1,7 @@
 <div class="grid grid-cols-12">
   <div class="bg-gray-500 col-span-3 max-h-screen overflow-auto">
     @for (item of chartDataArray; track item.name) {
-      <p class="underline">{{item.name}}</p>
+      <p (click)="addToSelected(item)" class="underline">{{item.name}}</p>
     }
   </div>
   <div class="col-span-9">
