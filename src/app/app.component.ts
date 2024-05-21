@@ -21,21 +21,21 @@ export class AppComponent implements OnInit {
   public headers: any;
   title = 'phrases';
 
+  public selectedDataArray!: any[];
+
   constructor (public googleSheetsService: GoogleSheetsService) {
     this.chartDataArray = [];
   }
 
   ngOnInit() {
-
+    this.googleSheetsService.getSheetData().subscribe((data) => {
+      this.chartData = data;
+      this.chartDataArray = this.chartDataArray.concat(this.chartData);
+    });
   }
 
   loadData() {
-    this.googleSheetsService.getSheetData().subscribe(data => {
-      this.chartData = data;
-      console.log(this.chartData.length);
-      this.chartDataArray = this.chartDataArray.concat(this.chartData);
-      this.createChart();
-    });
+    this.createChart();
   }
 
   createChart () {
