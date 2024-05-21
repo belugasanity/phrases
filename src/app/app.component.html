@@ -1,12 +1,10 @@
 <div class="grid grid-cols-12">
   <div class="bg-gray-500 col-span-3 max-h-screen overflow-auto">
     @for (item of chartDataArray; track item.name) {
-      <p (click)="addToSelected(item)" class="underline">{{item.name}}</p>
+      <p (click)="addToSelected(item)" class="underline cursor-pointer">{{item.name}}</p>
     }
   </div>
   <div class="col-span-9">
     <canvasjs-chart [options]="chartOptions" [styles]="{display: 'block', width: '100%', height: '360px'}"></canvasjs-chart>
-    <button (click)="loadData()">Load Data</button>
   </div>
 </div>
-<!-- <p>{{ chartDataArray | json }}</p> -->
