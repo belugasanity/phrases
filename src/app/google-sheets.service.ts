@@ -28,6 +28,8 @@ export class GoogleSheetsService {
           return {
             type: "line",
             name: header,
+            showInLegend: true,
+            legendText: header,
             dataPoints: data.map((row: { year: any; values: { [x: string]: any; }; }) => ({
               x: new Date(row.year, 0, 1),
               y: parseFloat(row.values[colIndex] || 0)
