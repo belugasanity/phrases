@@ -1,10 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GoogleSheetsService } from './google-sheets.service';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { JsonPipe } from '@angular/common';
-// import { Chart, ChartDataset, ChartOptions } from 'chart.js';
-// import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +20,8 @@ export class AppComponent implements OnInit {
   title = 'phrases';
 
   public selectedDataArray!: any[];
+
+  public chart!: any;
 
   constructor (public googleSheetsService: GoogleSheetsService) {
     this.chartDataArray = [];
@@ -50,6 +50,11 @@ export class AppComponent implements OnInit {
         valueFormatString: "YYYY",
         intervalType: "year",
       },
+      toolTip:{
+        contentFormatter: function (e: any) {
+          return "<strong>" + e.entries[0].dataSeries.legendText + "</strong> " +  e.entries[0].dataPoint.x.getFullYear();
+        },
+      },
       data: this.selectedDataArray
       }
 
@@ -57,7 +62,6 @@ export class AppComponent implements OnInit {
 
   addToSelected(item: any) {
     this.selectedDataArray.push(item);
-    console.log(this.selectedDataArray);
     this.createChart();
   }
 
