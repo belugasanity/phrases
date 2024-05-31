@@ -9,7 +9,7 @@ import { JsonPipe } from '@angular/common';
   standalone: true,
   imports: [RouterOutlet, CanvasJSAngularChartsModule, JsonPipe],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   public chartOptions: any;
@@ -19,9 +19,9 @@ export class AppComponent implements OnInit {
   public headers: any;
   title = 'phrases';
 
-  public selectedDataArray!: any[];
+  public chart: any;
 
-  public chart!: any;
+  public selectedDataArray!: any[];
 
   constructor (public googleSheetsService: GoogleSheetsService) {
     this.chartDataArray = [];
@@ -33,22 +33,20 @@ export class AppComponent implements OnInit {
       this.chartData = data;
       this.chartDataArray = this.chartDataArray.concat(this.chartData);
     });
-  }
 
-  loadData() {
     this.createChart();
   }
 
-  createChart () {
+  createChart() {
     // Docs for this dumb chart
     // https://canvasjs.com/angular-charts/line-chart-with-date-time-axis/
     this.chartOptions = {
       title: {
-        text: "Phrases"
+        text: 'Phrases',
       },
       axisX: {
-        valueFormatString: "YYYY",
-        intervalType: "year",
+        valueFormatString: 'YYYY',
+        intervalType: 'year',
       },
       toolTip:{
         contentFormatter: function (e: any) {
@@ -62,10 +60,20 @@ export class AppComponent implements OnInit {
 
   addToSelected(item: any) {
     this.selectedDataArray.push(item);
-    this.createChart();
+    console.log(this.selectedDataArray);
+    this.chart.render();
   }
 
   findItem(item: any) {
     return this.selectedDataArray.find((x) => x.name === item.name);
+  }
+
+  getChartInstance(chart: object) {
+    this.chart = chart;
+    this.updateData();
+  }
+
+  updateData() {
+    this.chart.data = this.selectedDataArray;
   }
 }
