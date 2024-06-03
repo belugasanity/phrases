@@ -1,6 +1,7 @@
 <div class="grid grid-cols-12">
   <div class="bg-gray-100 px-8 py-4 col-span-3 max-h-screen overflow-auto">
-    @for (item of chartDataArray; track item.name) {
+    <input class="p-2 w-full text-xl rounded border-gray-500 border-solid border-2 flex-auto" id="searchTerm" type="text" placeholder="Search..." [formControl]="searchTerm">
+    @for (item of filteredChartDataArray(); track item.name) {
       <!-- selected items -->
       @if (selectedDataArray.length > 0 && findItem(item)) {
         <div (click)="removeFromSelected(item)" class="bg-green-600 pl-4 py-4 my-2 text-white cursor-pointer">

@@ -3,11 +3,17 @@ import { RouterOutlet } from '@angular/router';
 import { GoogleSheetsService } from './google-sheets.service';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { JsonPipe } from '@angular/common';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CanvasJSAngularChartsModule, JsonPipe],
+  imports: [
+    RouterOutlet,
+    CanvasJSAngularChartsModule,
+    JsonPipe,
+    ReactiveFormsModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -21,6 +27,8 @@ export class AppComponent implements OnInit {
   public chart: any;
 
   public selectedDataArray!: any[];
+
+  public searchTerm = new FormControl('');
 
   constructor(public googleSheetsService: GoogleSheetsService) {
     this.chartDataArray = [];
@@ -108,5 +116,14 @@ export class AppComponent implements OnInit {
 
   updateData() {
     this.chart.data = this.selectedDataArray;
+  }
+
+  filteredChartDataArray() {
+    if (!this.searchTerm) {
+      return this.chartDataArray;
+    }
+    return this.chartDataArray.filter((item: any) =>
+      item.name.toLowerCase().includes(this.searchTerm.value?.toLowerCase())
+    );
   }
 }
