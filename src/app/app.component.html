@@ -1,5 +1,5 @@
 <div class="grid grid-cols-12">
-  <div class="bg-gray-100 px-8 py-4 col-span-3 max-h-screen overflow-auto">
+  <div class="bg-gray-100 px-8 py-4 col-span-9 lg:col-span-3 max-h-screen overflow-auto order-last lg:order-1">
     <input class="p-2 w-full text-xl rounded border-gray-500 border-solid border-2 flex-auto" id="searchTerm" type="text" placeholder="Search..." [formControl]="searchTerm">
     @for (item of filteredChartDataArray(); track item.name) {
       <!-- selected items -->
@@ -20,7 +20,7 @@
       }
     }
   </div>
-  <div class="col-span-9">
+  <div class="lg:col-span-9 col-span-12 order-1 lg:order-last">
     @if (chartOptions) {
       <canvasjs-chart (chartInstance)=getChartInstance($event) [options]="chartOptions" [styles]="{display: 'block', width: '100%', height: '560px'}"></canvasjs-chart>
     }
