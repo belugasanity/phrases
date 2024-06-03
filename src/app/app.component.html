@@ -1,6 +1,7 @@
 <div class="grid grid-cols-12">
   <div class="bg-gray-100 px-8 py-4 col-span-3 max-h-screen overflow-auto">
     @for (item of chartDataArray; track item.name) {
+      <!-- selected items -->
       @if (selectedDataArray.length > 0 && findItem(item)) {
         <div class="bg-green-600 pl-4 py-4 my-2 text-white cursor-pointer">
           <p>
@@ -9,6 +10,7 @@
         </div>
 
       } @else {
+        <!-- unselected items -->
         <div (click)="addToSelected(item)" class="bg-cyan-900 pl-4 py-4 my-2 text-white cursor-pointer">
           <p>
             {{item.name}}
