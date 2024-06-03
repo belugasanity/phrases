@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
 
   public selectedDataArray!: any[];
 
-  constructor (public googleSheetsService: GoogleSheetsService) {
+  constructor(public googleSheetsService: GoogleSheetsService) {
     this.chartDataArray = [];
     this.selectedDataArray = [];
   }
@@ -48,24 +48,51 @@ export class AppComponent implements OnInit {
         valueFormatString: 'YYYY',
         intervalType: 'year',
       },
-      toolTip:{
+      toolTip: {
         contentFormatter: function (e: any) {
-          return "<strong>" + e.entries[0].dataSeries.legendText + "</strong> " +  e.entries[0].dataPoint.x.getFullYear();
+          return (
+            '<strong>' +
+            e.entries[0].dataSeries.legendText +
+            '</strong> ' +
+            e.entries[0].dataPoint.x.getFullYear()
+          );
         },
       },
-      data: this.selectedDataArray
-      }
+      data: this.selectedDataArray,
+    };
 
+    // TODO: Add default selections to the chart
+    // this.addDefaults();
+    // console.log(this.selectedDataArray);
   }
 
   addToSelected(item: any) {
     this.selectedDataArray.push(item);
-    console.log(this.selectedDataArray);
     this.chart.render();
   }
 
   findItem(item: any) {
-    return this.selectedDataArray.find((x) => x.name === item.name);
+    if (!item || !item.name) {
+      console.error('Invalid item provided:', item);
+      return undefined;
+    }
+
+    return this.selectedDataArray.find((x: any) => x && x.name === item.name);
+  }
+
+  addDefaults() {
+    const default1 = 'COVENANT PEOPLE';
+    const default2 = 'INVITE YOU';
+
+    let defaultList = [];
+    defaultList.push(default1);
+    defaultList.push(default2);
+
+    defaultList.forEach((defaultItem) => {
+      this.selectedDataArray.push(
+        this.chartDataArray.find((x) => x.name === defaultItem)
+      );
+    });
   }
 
   getChartInstance(chart: object) {
