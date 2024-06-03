@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
             '<strong>' +
             e.entries[0].dataSeries.legendText +
             '</strong> ' +
-            e.entries[0].dataPoint.x.getFullYear()
+            e.entries[0].dataPoint.x.getFullYear() + ',<i> ' + e.entries[0].dataPoint.y + '</i>'
           );
         },
       },
