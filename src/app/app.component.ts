@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
     // https://canvasjs.com/angular-charts/line-chart-with-date-time-axis/
     this.chartOptions = {
       title: {
-        text: 'Phrases',
+        text: 'Second Coming Timeline: Phrases',
       },
       axisX: {
         valueFormatString: 'YYYY',
