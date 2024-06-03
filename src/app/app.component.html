@@ -3,7 +3,7 @@
     @for (item of chartDataArray; track item.name) {
       <!-- selected items -->
       @if (selectedDataArray.length > 0 && findItem(item)) {
-        <div class="bg-green-600 pl-4 py-4 my-2 text-white cursor-pointer">
+        <div (click)="removeFromSelected(item)" class="bg-green-600 pl-4 py-4 my-2 text-white cursor-pointer">
           <p>
             {{item.name}}
           </p>

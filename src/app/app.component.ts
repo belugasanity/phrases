@@ -14,7 +14,6 @@ import { JsonPipe } from '@angular/common';
 export class AppComponent implements OnInit {
   public chartOptions: any;
 
-  public chartData: any;
   public chartDataArray!: any[];
   public headers: any;
   title = 'phrases';
@@ -30,8 +29,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.googleSheetsService.getSheetData().subscribe((data) => {
-      this.chartData = data;
-      this.chartDataArray = this.chartDataArray.concat(this.chartData);
+      this.chartDataArray = this.chartDataArray.concat(data);
     });
 
     this.createChart();
@@ -68,6 +66,14 @@ export class AppComponent implements OnInit {
 
   addToSelected(item: any) {
     this.selectedDataArray.push(item);
+    this.chart.render();
+  }
+
+  removeFromSelected(item: any) {
+    this.selectedDataArray = this.selectedDataArray.filter(
+      (x: any) => x.name !== item.name
+    );
+    this.chartOptions.data = this.selectedDataArray;
     this.chart.render();
   }
 
